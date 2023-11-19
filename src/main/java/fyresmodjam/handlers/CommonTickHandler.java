@@ -167,26 +167,24 @@ public class CommonTickHandler {
          }
       }
 
-      Iterator i$ = addLater.iterator();
+       for (Object o : addLater) {
+           Entity e = (Entity) o;
+           WorldServer world = null;
+           WorldServer[] arr$ = MinecraftServer.getServer().worldServers;
+           int len$ = arr$.length;
 
-      while(i$.hasNext()) {
-         Entity e = (Entity)i$.next();
-         WorldServer world = null;
-         WorldServer[] arr$ = MinecraftServer.getServer().worldServers;
-         int len$ = arr$.length;
+           for (int i$ = 0; i$ < len$; ++i$) {
+               WorldServer s = arr$[i$];
+               if (s.provider.dimensionId == e.dimension) {
+                   world = s;
+                   break;
+               }
+           }
 
-         for(int i$ = 0; i$ < len$; ++i$) {
-            WorldServer s = arr$[i$];
-            if (s.provider.dimensionId == e.dimension) {
-               world = s;
-               break;
-            }
-         }
-
-         if (world != null) {
-            world.spawnEntityInWorld(e);
-         }
-      }
+           if (world != null) {
+               world.spawnEntityInWorld(e);
+           }
+       }
 
       addLater.clear();
       if (worldData != null) {
@@ -202,6 +200,5 @@ public class CommonTickHandler {
             MinecraftServer.getServer().worldServers[0].getWorldInfo().setWorldTime(18000L);
          }
       }
-
    }
 }

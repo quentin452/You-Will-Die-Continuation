@@ -103,15 +103,12 @@ public class WorldGenTrapsTowersAndMore implements IWorldGenerator {
                         }
                      }
                   }
-
-                  int changes = false;
                   x2 = -1;
-
                   do {
                      y2 = 0;
 
                      for(z2 = -5; z2 <= 5; ++z2) {
-                        for(int z2 = -5; z2 <= 5; ++z2) {
+                        for(z2 = -5; z2 <= 5; ++z2) {
                            if (z2 * z2 + z2 * z2 <= 25 && world.isAirBlock(x + z2, y + x2, z + z2)) {
                               world.setBlock(x + z2, y + x2, z + z2, !obsidian ? (random.nextBoolean() ? Blocks.mossy_cobblestone : Blocks.cobblestone) : Blocks.obsidian);
                               ++y2;

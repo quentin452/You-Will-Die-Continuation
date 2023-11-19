@@ -385,7 +385,7 @@ public class ModjamMod extends CommandHandler {
       });
       ItemStatHelper.addStatTracker(armorTracker);
 
-      for(int i = 0; i < 13; ++i) {
+      for(i = 0; i < 13; ++i) {
          ChestGenHooks.getInfo("dungeonChest").addItem(new WeightedRandomChestContent(mysteryPotion, i, 1, 3, 2));
          WorldGenTrapsTowersAndMore.chestGenInfo.addItem(new WeightedRandomChestContent(mysteryPotion, i, 1, 3, 2));
       }

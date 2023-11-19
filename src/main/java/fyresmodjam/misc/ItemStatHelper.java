@@ -176,7 +176,6 @@ public class ItemStatHelper {
          }
 
          if (!skip && event.source != null && event.source.getEntity() != null) {
-            String blessing;
             if (event.source.getEntity() instanceof EntityLivingBase) {
                entity = (EntityLivingBase)event.source.getEntity();
                ItemStack held = entity.getEquipmentInSlot(0);
@@ -189,7 +188,6 @@ public class ItemStatHelper {
             }
 
             blessing = EntityStatHelper.getUnalteredName(event.entity);
-            int kills;
             if (ModjamMod.enableMobKillStats && event.source.getEntity() instanceof EntityPlayer && event.source.getEntity().getEntityData().hasKey("KillStats") && event.source.getEntity().getEntityData().getCompoundTag("KillStats").hasKey(blessing)) {
                kills = event.source.getEntity().getEntityData().getCompoundTag("KillStats").getInteger(blessing);
                int last = 0;
@@ -283,24 +281,22 @@ public class ItemStatHelper {
                         if (processed == null || processed.equals("false")) {
                            stack.getTagCompound().setTag("Lore", new NBTTagList());
                            giveStat(stack, "processed", "true");
-                           Iterator i$ = temp.iterator();
 
-                           while(i$.hasNext()) {
-                              ItemStatHelper.ItemStatTracker statTracker = (ItemStatHelper.ItemStatTracker)i$.next();
-                              Iterator i$ = statTracker.stats.iterator();
+                            for (Object o : temp) {
+                                ItemStatTracker statTracker = (ItemStatTracker) o;
 
-                              while(i$.hasNext()) {
-                                 ItemStatHelper.ItemStat s = (ItemStatHelper.ItemStat)i$.next();
-                                 giveStat(stack, s.name, s.getNewValue(stack, r).toString());
-                                 String lore = s.getLore(stack);
-                                 if (lore != null) {
-                                    addLore(stack, lore);
-                                 }
+                                for (Object value : statTracker.stats) {
+                                    ItemStat s = (ItemStat) value;
+                                    giveStat(stack, s.name, s.getNewValue(stack, r).toString());
+                                    String lore = s.getLore(stack);
+                                    if (lore != null) {
+                                        addLore(stack, lore);
+                                    }
 
-                                 setName(stack, s.getAlteredStackName(stack, r));
-                                 s.modifyStack(stack, r);
-                              }
-                           }
+                                    setName(stack, s.getAlteredStackName(stack, r));
+                                    s.modifyStack(stack, r);
+                                }
+                            }
                         }
                      } else {
                         skip.add(itemClass);
@@ -315,25 +311,24 @@ public class ItemStatHelper {
                Class[] arr$ = e.classes;
                int len$ = arr$.length;
 
-               for(int i$ = 0; i$ < len$; ++i$) {
-                  Class c = arr$[i$];
-                  if (c.isAssignableFrom(itemClass)) {
-                     ArrayList list = null;
-                     if (!statTrackersByClass.containsKey(itemClass)) {
-                        list = new ArrayList();
-                        statTrackersByClass.put(itemClass, list);
-                     } else {
-                        list = (ArrayList)statTrackersByClass.get(itemClass);
-                     }
+                for (Class c : arr$) {
+                    if (c.isAssignableFrom(itemClass)) {
+                        ArrayList list = null;
+                        if (!statTrackersByClass.containsKey(itemClass)) {
+                            list = new ArrayList();
+                            statTrackersByClass.put(itemClass, list);
+                        } else {
+                            list = (ArrayList) statTrackersByClass.get(itemClass);
+                        }
 
-                     if (!((ArrayList)statTrackersByClass.get(itemClass)).contains(e)) {
-                        list.add(e);
-                     }
+                        if (!((ArrayList) statTrackersByClass.get(itemClass)).contains(e)) {
+                            list.add(e);
+                        }
 
-                     temp.add(e);
-                     break;
-                  }
-               }
+                        temp.add(e);
+                        break;
+                    }
+                }
             }
          }
       }

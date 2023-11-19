@@ -44,7 +44,7 @@ public class ClientProxy extends CommonProxy {
             Block id = world.getBlock(mouse.blockX, mouse.blockY, mouse.blockZ);
             if (id == ModjamMod.blockPillar || id == ModjamMod.blockTrap && te != null && te instanceof TileEntityTrap && ((TileEntityTrap)te).placedBy != null) {
                string = Keyboard.getKeyName(FyresKeyHandler.examine.getKeyCode());
-               String string = "Press " + string + " to Examine";
+               string = "Press " + string + " to Examine";
                if (te != null && Minecraft.getMinecraft().thePlayer != null && te instanceof TileEntityTrap && ((TileEntityTrap)te).placedBy.equals(Minecraft.getMinecraft().thePlayer.getCommandSenderName())) {
                   string = Minecraft.getMinecraft().thePlayer.isSneaking() ? "Use to disarm (Stand to toggle setting)" : "Use to toggle setting (Sneak to disarm)";
                }

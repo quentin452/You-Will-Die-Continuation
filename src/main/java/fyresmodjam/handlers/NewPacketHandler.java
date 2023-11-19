@@ -568,7 +568,7 @@ public class NewPacketHandler {
       }
    }
 
-   public static class ChannelHandler extends FMLIndexedMessageToMessageCodec {
+    public static class ChannelHandler extends FMLIndexedMessageToMessageCodec<NewPacketHandler.IPacket> {
       public ChannelHandler() {
          this.addDiscriminator(0, NewPacketHandler.BasicPacket.class);
       }
@@ -583,10 +583,10 @@ public class NewPacketHandler {
             NewPacketHandler.packetTypes[((NewPacketHandler.BasicPacket)packet).type].data = ((NewPacketHandler.BasicPacket)packet).data;
          }
 
-         EntityPlayer player = null;
+         EntityPlayer player;
          switch(FMLCommonHandler.instance().getEffectiveSide()) {
          case CLIENT:
-            EntityPlayer player = this.getClientPlayer();
+            player = this.getClientPlayer();
             if (player != null) {
                packet.executeClient(player);
                packet.executeBoth(player);

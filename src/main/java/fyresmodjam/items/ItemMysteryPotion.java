@@ -100,7 +100,6 @@ public class ItemMysteryPotion extends Item {
 
          par2World.playSoundAtEntity(par3EntityPlayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
          if (!par2World.isRemote) {
-            int value = false;
             int value;
             if (par1ItemStack.getItemDamage() % 13 >= 12) {
                for(value = ModjamMod.r.nextInt(Potion.potionTypes.length); Potion.potionTypes[value] == null; value = ModjamMod.r.nextInt(Potion.potionTypes.length)) {

@@ -81,7 +81,6 @@ public class EntityMysteryPotion extends EntityThrowable {
          if (list1 != null && !list1.isEmpty()) {
             int type = this.getDataWatcher().getWatchableObjectInt(24) % 13;
             int j = type >= 12 ? 5 + ModjamMod.r.nextInt(26) : this.getDataWatcher().getWatchableObjectInt(25);
-            int damage = false;
             int damage;
             if (type < 12 && (!this.getThrower().getEntityData().hasKey("Blessing") || !this.getThrower().getEntityData().getString("Blessing").equals("Alchemist"))) {
                damage = CommonTickHandler.worldData.potionValues[type];

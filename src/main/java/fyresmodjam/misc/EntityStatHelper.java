@@ -184,20 +184,19 @@ public class EntityStatHelper {
                         String processed = getStat(entity, "processed");
                         if (processed == null || processed.equals("false")) {
                            giveStat(entity, "processed", "true");
-                           Iterator i$ = temp.iterator();
 
-                           while(i$.hasNext()) {
-                              EntityStatHelper.EntityStatTracker statTracker = (EntityStatHelper.EntityStatTracker)i$.next();
+                            for (Object o : temp) {
+                                EntityStatTracker statTracker = (EntityStatTracker) o;
 
-                              EntityStatHelper.EntityStat s;
-                              for(Iterator i$ = statTracker.stats.iterator(); i$.hasNext(); s.modifyEntity(entity)) {
-                                 s = (EntityStatHelper.EntityStat)i$.next();
-                                 giveStat(entity, s.name, s.getNewValue(r).toString());
-                                 if (entity instanceof EntityLiving) {
-                                    setName((EntityLiving)entity, s.getAlteredEntityName((EntityLiving)entity));
-                                 }
-                              }
-                           }
+                                EntityStat s;
+                                for (i$ = statTracker.stats.iterator(); i$.hasNext(); s.modifyEntity(entity)) {
+                                    s = (EntityStat) i$.next();
+                                    giveStat(entity, s.name, s.getNewValue(r).toString());
+                                    if (entity instanceof EntityLiving) {
+                                        setName((EntityLiving) entity, s.getAlteredEntityName((EntityLiving) entity));
+                                    }
+                                }
+                            }
                         }
                      }
 
@@ -210,13 +209,12 @@ public class EntityStatHelper {
                Class[] arr$ = e.classes;
                int len$ = arr$.length;
 
-               for(int i$ = 0; i$ < len$; ++i$) {
-                  Class c = arr$[i$];
-                  if (c.isAssignableFrom(entity.getClass())) {
-                     temp.add(e);
-                     break;
-                  }
-               }
+                for (Class c : arr$) {
+                    if (c.isAssignableFrom(entity.getClass())) {
+                        temp.add(e);
+                        break;
+                    }
+                }
             }
          }
       }
@@ -333,7 +331,6 @@ public class EntityStatHelper {
          killStats.setInteger(mob, killStats.getInteger(mob) + 1);
          int count;
          if (ModjamMod.enableMobKillStats) {
-            int count;
             for(count = 0; count < knowledge.length; ++count) {
                if (killCount[count] == killStats.getInteger(mob)) {
                   NewPacketHandler.SEND_MESSAGE.sendToPlayer(player, "§o§3You've become a " + knowledge[count].toLowerCase() + " " + mob.toLowerCase() + " slayer! (+" + damageBonusString[count] + "% damage against " + mob.toLowerCase() + "s.)" + (count < knowledge.length - 1 ? " " + (killCount[count + 1] - killCount[count]) + " " + mob.toLowerCase() + " kills to next rank." : ""));

@@ -28,7 +28,6 @@ public class CommandKillStats implements ICommand {
 
    public void processCommand(ICommandSender icommandsender, String[] astring) {
       int page = astring.length > 0 ? Integer.parseInt(astring[0]) - 1 : 0;
-      int maxPage = false;
       if (icommandsender instanceof EntityPlayer) {
          EntityPlayer entityplayer = (EntityPlayer)icommandsender;
          String message = "§c§oMob kill stats not enabled.";
